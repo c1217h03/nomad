@@ -3,11 +3,12 @@ import { StyleSheet, View, Image, Platform, Text } from "react-native";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
 import Map from "./Map";
+import { LOCATIONS } from "../../data/locations";
 
 export default function Home() {
   return (
     <View style={styles.container}>
-      <Map />
+      <Map markers={LOCATIONS} />
     </View>
   );
 }

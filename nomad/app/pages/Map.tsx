@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Image, Platform, Text } from "react-native";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
+import { MapLocation } from "../../data/locations";
 
 // Dynamically import map components on native
 let MapView: any = null;
@@ -9,7 +10,13 @@ let Marker: any = null;
 let Circle: any = null;
 let Polygon: any = null;
 
-export default function Home() {
+type Props = {
+  //   userLocation: { latitude: number; longitude: number };
+  //   heading: number;
+  markers?: MapLocation[];
+};
+
+export default function Map({ markers = [] }: Props) {
   const [userLocation, setUserLocation] = useState<LatLng | null>(null);
   const [permissionGranted, setPermissionGranted] = useState<boolean | null>(
     null,
@@ -166,13 +173,16 @@ export default function Home() {
           />
         </Marker>
 
-        {/* Radar cone */}
-        {/* <Polygon
-          coordinates={radarPoints}
-          fillColor="rgba(0, 149, 255, 0.14)"
-          strokeColor="rgba(0, 149, 255, 0.19)"
-          strokeWidth={1}
-        /> */}
+        {/* Location markers */}
+        {markers.map((m) => (
+          <Marker
+            key={m.title}
+            coordinate={{ latitude: m.latitude, longitude: m.longitude }}
+            title={m.title}
+          >
+            <Image source={{ uri: m.npc }} style={styles.npcMarker} />
+          </Marker>
+        ))}
       </MapView>
     </View>
   );
@@ -180,5 +190,6 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  userMarker: { width: 80, height: 80, resizeMode: "contain" },
+  userMarker: { width: 40, height: 40, resizeMode: "contain" },
+  npcMarker: { width: 100, height: 100, resizeMode: "contain" },
 });
