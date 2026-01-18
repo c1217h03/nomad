@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import MapView, { Region, Marker } from "react-native-maps";
+import MapView, { Region, Marker, StyleSheet, View, Image, Platform, Text } from "react-native-maps";
+import React, { useEffect, useState } from "react";
+import * as Location from "expo-location";
+import type { LatLng } from "react-native-maps";
+import Map from "./Map";
+import { LOCATIONS } from "../../data/locations";
 
 import Button from "./Button";
 import SearchBar from "./SearchBar";
@@ -77,6 +80,7 @@ export default function Home() {
       {openPage === "profile" && (
         <ProfilePage setProfilePage={() => setOpenPage(null)} />
       )}
+      <Map markers={LOCATIONS} />
     </View>
   );
 }
@@ -98,4 +102,9 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   map: { flex: 1 },
+  userMarker: {
+    width: 80,
+    height: 80,
+    resizeMode: "contain",
+  },
 });
