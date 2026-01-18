@@ -311,7 +311,7 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
 
       {gameActive && (
         <TouchableOpacity style={styles.endButton} onPress={endGame}>
-          <Text style={styles.endButtonText}>End Game</Text>
+          <Text style={styles.endButtonText}>I Give Up!</Text>
         </TouchableOpacity>
       )}
 
