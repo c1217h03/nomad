@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from "react-native";
+
 export type MapLocation = {
   title: string;
   latitude: number;
@@ -6,6 +8,7 @@ export type MapLocation = {
   summary: string;
   guide: string;
   challenges: Challenge[];
+  posts: Post[];
 };
 
 type Challenge = {
@@ -14,6 +17,14 @@ type Challenge = {
   isCompleted: boolean;
   reward: number;
 };
+
+type Post = {
+  title: string;
+  author: string;
+  profilePicture: ImageSourcePropType;
+  thumbnail: ImageSourcePropType | null;
+  desc: string;
+}
 
 export const LOCATIONS: MapLocation[] = [
   {
@@ -70,6 +81,29 @@ Hint: Slow down, look around, and explore places you might usually walk past.
         reward: 100,
       },
     ],
+    posts: [
+      {
+        title: "Accidentally Found a Moment",
+  author: "MarioLuigi",
+  profilePicture: require("../assets/images/profile.png"),
+  thumbnail: require("../assets/images/capilanoBridge.png"),
+desc: "I've lived in Vancouver for years, but somehow this was my first time here. The bridge felt way higher than I expected, and the sound of the water rushing below made it surreal. I loved...",
+      },
+      {
+        title: "Solved my boredom today ;)",
+  author: "TheGorrilaz",
+  profilePicture: require("../assets/images/MC3.png"),
+  thumbnail: null,
+desc: "I literally just opened this app and I saw the NPC on the Stanley Park today...which was perfect because I was thinking of going there to bike yesterday, just didnt have the push to do it. If anyone's here now, let's meet and get some boba together before we go home ><",
+      },
+      {
+        title: "I found my best zen spot",
+  author: "PrincessPeach",
+  profilePicture: require("../assets/images/MC2.png"),
+  thumbnail: null,
+desc: "I've been here a hundred times, but today I actually stopped and looked around. The building is way cooler than I give it credit for, especially when it's buzzing with people between...",
+      }
+    ]
   },
   {
     title: "Pacific Spirit Park",
@@ -80,6 +114,7 @@ Hint: Slow down, look around, and explore places you might usually walk past.
       "Pacific Spirit Park is a beautiful natural area located in the heart of UBC. It features walking trails, picnic areas, and a peaceful environment for relaxation and recreation.",
     guide: "",
     challenges: [],
+    posts:[],
   },
   {
     title: "UBC Botanical Garden",
@@ -90,6 +125,7 @@ Hint: Slow down, look around, and explore places you might usually walk past.
       "The UBC Botanical Garden is a serene and educational space featuring a diverse collection of plants from around the world. It offers a peaceful retreat for students and visitors to enjoy nature and learn about botany.",
     guide: "",
     challenges: [],
+    posts:[],
   },
   {
     title: "Acadia Beach",
@@ -100,5 +136,6 @@ Hint: Slow down, look around, and explore places you might usually walk past.
       "Acadia Beach is a scenic coastal area near UBC, offering beautiful views of the ocean and a peaceful environment for relaxation and recreation.",
     guide: "",
     challenges: [],
+    posts:[],
   },
 ];
