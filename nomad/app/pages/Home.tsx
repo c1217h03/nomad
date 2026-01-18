@@ -1,18 +1,12 @@
-import MapView, { Region, Marker } from "react-native-maps";
 import { StyleSheet, View, Image, Platform, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import * as Location from "expo-location";
-import type { LatLng } from "react-native-maps";
 import Map from "./Map";
 import { LOCATIONS, NPC_GAME_LOCATIONS } from "../../data/locations";
-import NPCGame from "./FindNugget";
-
 import Button from "./Button";
 import SearchBar from "./SearchBar";
 import InventoryPage from "./InventoryPage";
 import ShopPage from "./ShopPage";
-import MarkerPopup from "./summaryPopup";
-import ClosePopup from "./closePopup";
+import ProfilePostsPage from "./ProfilePage";
 
 const expandImg = require("../../assets/images/expand.png");
 const inventoryImg = require("../../assets/images/inventory.png");
@@ -20,7 +14,6 @@ const shopImg = require("../../assets/images/shop.png");
 const profileImg = require("../../assets/images/profile.png");
 
 export default function Home() {
-  const [popupType, setPopUp] = useState<"nearby" | "far" | null>(null);
   const [expanded, setExpanded] = useState(false);
 
   const [openPage, setOpenPage] = useState<
@@ -30,21 +23,6 @@ export default function Home() {
   const expandButtons = () => {
     console.log("Exand button clicked");
     setExpanded(!expanded);
-  };
-
-  const showInventory = () => {
-    console.log("Inventory button clicked");
-    setOpenPage("inventory");
-  };
-
-  const showShop = () => {
-    console.log("Shop button clicked");
-    setOpenPage("shop");
-  };
-
-  const showProfile = () => {
-    console.log("Profile button clicked");
-    setOpenPage("profile");
   };
 
   return (
@@ -64,7 +42,7 @@ export default function Home() {
               <Button btnImage={shopImg} onClick={() => setOpenPage("shop")} />
               <Button
                 btnImage={profileImg}
-                onClick={() => setOpenPage("inventory")}
+                onClick={() => setOpenPage("profile")}
               />
             </>
           )}
@@ -78,6 +56,10 @@ export default function Home() {
 
         {openPage === "shop" && (
           <ShopPage setShopPage={() => setOpenPage(null)} />
+        )}
+
+        {openPage === "profile" && (
+          <ProfilePostsPage setProfilePage={() => setOpenPage(null)} />
         )}
       </View>
 
