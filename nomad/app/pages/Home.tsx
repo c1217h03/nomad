@@ -21,12 +21,7 @@ const profileImg = require("../../assets/images/profile.png");
 
 export default function Home() {
   const [popupType, setPopUp] = useState<"nearby" | "far" | null>(null);
-
   const [expanded, setExpanded] = useState(false);
-  const [openInventory, setInventoryPage] = useState(false);
-  const [openShop, setShopPage] = useState(false);
-
-  const [openProfile, setProfilePage] = useState(false);
 
   const [openPage, setOpenPage] = useState<
     "inventory" | "shop" | "profile" | null
@@ -62,14 +57,19 @@ export default function Home() {
           <Button btnImage={expandImg} onClick={expandButtons} />
           {expanded && (
             <>
-              <Button btnImage={inventoryImg} onClick={showInventory} />
-              <Button btnImage={shopImg} onClick={showShop} />
-              <Button btnImage={profileImg} onClick={showProfile} />
+              <Button
+                btnImage={inventoryImg}
+                onClick={() => setOpenPage("inventory")}
+              />
+              <Button btnImage={shopImg} onClick={() => setOpenPage("shop")} />
+              <Button
+                btnImage={profileImg}
+                onClick={() => setOpenPage("inventory")}
+              />
             </>
           )}
         </View>
       </View>
-      <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
 
       <View style={styles.pagesContainer}>
         {openPage === "inventory" && (
@@ -79,6 +79,10 @@ export default function Home() {
         {openPage === "shop" && (
           <ShopPage setShopPage={() => setOpenPage(null)} />
         )}
+      </View>
+
+      <View style={styles.mapPage}>
+        <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
       </View>
     </View>
   );
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
     right: 5,
     position: "absolute",
   },
-  map: { flex: 1 },
+  map: { flex: 1, zIndex: -1 },
   userMarker: {
     width: 80,
     height: 80,
@@ -114,6 +118,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   pagesContainer: {
-    zIndex: 10,
+    zIndex: 100,
   },
 });

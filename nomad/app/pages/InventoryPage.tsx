@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f3f3f3",
     flex: 1,
     alignItems: "center",
+    zIndex: 10,
   },
   inventoryPicContainer: {
     backgroundColor: "white",

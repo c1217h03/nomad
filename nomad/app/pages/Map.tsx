@@ -113,20 +113,20 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
             };
             setUserLocation(newLoc);
 
-            /** 🔹 Check distance to Nugget */
-            if (gameActive && nugget && !foundNugget) {
-              const dist = getDistanceInMeters(newLoc, {
-                latitude: nugget.latitude,
-                longitude: nugget.longitude,
-              });
+            // /** 🔹 Check distance to Nugget */
+            // if (gameActive && nugget && !foundNugget) {
+            //   const dist = getDistanceInMeters(newLoc, {
+            //     latitude: nugget.latitude,
+            //     longitude: nugget.longitude,
+            //   });
 
-              //   console.log(`[NUGGET DISTANCE] ${dist.toFixed(2)} meters`);
+            //   //   console.log(`[NUGGET DISTANCE] ${dist.toFixed(2)} meters`);
 
-              if (dist <= 20) {
-                setFoundNugget(true);
-                setNuggetStep("found");
-              }
-            }
+            //   if (dist <= 10) {
+            //     setFoundNugget(true);
+            //     setNuggetStep("found");
+            //   }
+            // }
 
             // Update camera with latest location AND heading
             if (mapRef.current) {
@@ -237,11 +237,40 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
         ))}
 
         {/* 🔹 Nugget marker */}
-        {gameActive && nugget && !foundNugget && (
+        {/* {gameActive && nugget && !foundNugget && (
           <Marker
             coordinate={{
               latitude: nugget.latitude,
               longitude: nugget.longitude,
+            }}
+          >
+            <Image source={{ uri: nugget.npc }} style={styles.nuggetMarker} />
+          </Marker>
+        )} */}
+
+        {gameActive && nugget && (
+          <Marker
+            coordinate={{
+              latitude: nugget.latitude,
+              longitude: nugget.longitude,
+            }}
+            onPress={() => {
+              if (!userLocation || !setFoundNugget || !setNuggetStep) return;
+
+              const distance = getDistanceInMeters(userLocation, {
+                latitude: nugget.latitude,
+                longitude: nugget.longitude,
+              });
+
+              console.log("[NUGGET DISTANCE]", distance.toFixed(2), "meters");
+
+              // Only trigger popup if within 10 meters
+              if (distance <= 15) {
+                setFoundNugget(true);
+                setNuggetStep("found");
+              } else {
+                console.log("Too far to claim nugget!");
+              }
             }}
           >
             <Image source={{ uri: nugget.npc }} style={styles.nuggetMarker} />
@@ -259,13 +288,7 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
         )}
       </MapView>
 
-      {/* Start button */}
-      {!gameActive && (
-        <TouchableOpacity style={styles.startButton} onPress={startGame}>
-          <Text style={styles.startButtonText}>Start</Text>
-        </TouchableOpacity>
-      )}
-
+      
       {/* Nugget found popup */}
       {foundNugget && gameActive && (
         <NuggetFoundPopup
@@ -280,23 +303,15 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
         />
       )}
 
-      {/* Optional Circle for debugging proximity */}
-      {gameActive && nugget && !foundNugget && (
-        <Circle
-          center={{ latitude: nugget.latitude, longitude: nugget.longitude }}
-          radius={8}
-          fillColor="rgba(255, 215, 0, 0.3)"
-          strokeColor="rgba(255, 215, 0, 0.8)"
-          strokeWidth={1}
-        />
-      )}
-
       {/* Bottom popups */}
       {selectedMarker &&
         (selectedMarker.isNear ? (
           <ClosePopup
             location={selectedMarker}
             onClose={() => setSelectedMarker(null)}
+            startChallenge={() => {
+              startGame();
+            }}
           />
         ) : (
           <MarkerPopup
