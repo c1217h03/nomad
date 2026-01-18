@@ -1,7 +1,13 @@
-// NuggetFoundPopup.tsx
-import { MapLocation } from "@/data/locations";
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Vibration,
+} from "react-native";
+import { Audio } from "expo-av";
 
 type Props = {
   step: "found" | "reward" | null;
@@ -10,7 +16,30 @@ type Props = {
 };
 
 export default function NuggetFoundPopup({ step, onContinue, onOk }: Props) {
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
   useEffect(() => {
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      staysActiveInBackground: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    });
+  }, []);
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/images/beaverCry.mp3"),
+    );
+    setSound(sound);
+    console.log("Playing sound");
+    await sound.playAsync();
+  };
+
+  useEffect(() => {
+    if (step === "found") {
+      playSound();
+      Vibration.vibrate();
+    }
     console.log("NuggetFoundPopup step:", step);
   }, [step]);
   return (
