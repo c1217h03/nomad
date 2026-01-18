@@ -175,7 +175,7 @@ export default function Map({ markers = [] }: Props) {
         {/* User marker */}
         <Marker coordinate={userLocation} anchor={{ x: 0.5, y: 0.5 }}>
           <Image
-            source={require("../../assets/images/Avatar.png")}
+            source={require("../../assets/images/avatar.png")}
             style={styles.userMarker}
           />
         </Marker>

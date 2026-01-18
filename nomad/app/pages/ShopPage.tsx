@@ -14,7 +14,7 @@ const closeBtnImg = require("../../assets/images/close.png");
 const shareImg = require("../../assets/images/icon.png");
 const profilePicImg = require("../../assets/images/icon.png");
 
-const shopImg = require("../../assets/images/shop.png");
+const shopImg = require("../../assets/images/Shop.png");
 
 const leafHatImg = require("../../assets/images/leafHat.png");
 const ribbyImg = require("../../assets/images/ribby.png");

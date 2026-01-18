@@ -1,4 +1,5 @@
-import MapView, { Region, Marker, StyleSheet, View, Image, Platform, Text } from "react-native-maps";
+import MapView, { Region, Marker } from "react-native-maps";
+import { StyleSheet, Image, Text, Platform, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
@@ -12,8 +13,8 @@ import ShopPage from "./ShopPage";
 
 const expandImg = require("../../assets/images/expand.png");
 const inventoryImg = require("../../assets/images/Inventory.png");
-const shopImg = require("../../assets/images/shop.png");
-const profileImg = require("../../assets/images/profile.png");
+const shopImg = require("../../assets/images/Shop.png");
+const profileImg = require("../../assets/images/Profile.png");
 
 export default function Home() {
   const [expanded, setExpanded] = useState(false);
