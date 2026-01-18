@@ -1,6 +1,6 @@
 // NuggetFoundPopup.tsx
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 type Props = {
   onClose: () => void;
@@ -10,8 +10,8 @@ export default function NuggetFoundPopup({ onClose }: Props) {
   return (
     <View style={styles.overlay}>
       <View style={styles.popup}>
-        <Text style={styles.title}>🎉 Nugget Found!</Text>
-        <Text style={styles.text}>You discovered Nugget.</Text>
+        <Image source={require("../../assets/images/nugget.png")} />
+        <Text style={styles.title}>Yay! You found Me!</Text>
 
         <TouchableOpacity style={styles.button} onPress={onClose}>
           <Text style={styles.buttonText}>Continue</Text>
@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     padding: 24,
     borderRadius: 12,
     width: "80%",
+    height: "60%",
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 22,
