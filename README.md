@@ -13,4 +13,4 @@ Nomad is a gamified wellness and exploration app. It turns the city into an inte
 https://www.figma.com/proto/BAf6O3IYdYdaAO01tv1GO2/nwHacks--26?node-id=2007-111&t=gALuYxacujxh7wyA-1
 
 ## Pitch Deck
-https://www.figma.com/proto/BAf6O3IYdYdaAO01tv1GO2/nwHacks--26?node-id=2152-142&t=gALuYxacujxh7wyA-1
+https://www.figma.com/proto/BAf6O3IYdYdaAO01tv1GO2/nwHacks--26?node-id=2064-3027&t=gALuYxacujxh7wyA-1
