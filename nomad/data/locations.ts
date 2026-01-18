@@ -40,3 +40,13 @@ export const LOCATIONS: MapLocation[] = [
       "Acadia Beach is a scenic coastal area near UBC, offering beautiful views of the ocean and a peaceful environment for relaxation and recreation.",
   },
 ];
+
+export const NPC_GAME_LOCATIONS: MapLocation[] = [
+  {
+    title: "Nugget",
+    latitude: 49.26227397998184,
+    longitude: -123.24520448576409,
+    npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/nugget.png",
+    summary: "",
+  },
+];

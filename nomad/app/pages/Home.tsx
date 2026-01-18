@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
 import Map from "./Map";
-import { LOCATIONS } from "../../data/locations";
+import { LOCATIONS, NPC_GAME_LOCATIONS } from "../../data/locations";
+import NPCGame from "./FindNugget";
 
 import Button from "./Button";
 import SearchBar from "./SearchBar";
@@ -12,9 +13,9 @@ import InventoryPage from "./InventoryPage";
 import ShopPage from "./ShopPage";
 
 const expandImg = require("../../assets/images/expand.png");
-const inventoryImg = require("../../assets/images/Inventory.png");
-const shopImg = require("../../assets/images/Shop.png");
-const profileImg = require("../../assets/images/Profile.png");
+const inventoryImg = require("../../assets/images/inventory.png");
+const shopImg = require("../../assets/images/shop.png");
+const profileImg = require("../../assets/images/profile.png");
 
 export default function Home() {
   const [expanded, setExpanded] = useState(false);
@@ -81,7 +82,8 @@ export default function Home() {
       {openPage === "profile" && (
         <ProfilePage setProfilePage={() => setOpenPage(null)} />
       )}
-      <Map markers={LOCATIONS} />
+      <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
+      {/* <NPCGame npc={NPC_GAME_LOCATIONS[0]} /> */}
     </View>
   );
 }
