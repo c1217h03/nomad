@@ -21,13 +21,24 @@ const coinImg = require("../../assets/images/Coin.png");
 
 type Props = {
   location: MapLocation;
-  onClose: () => void;
+  onClose: () => any;
+  startChallenge: () => any;
 };
 
-export default function ClosePopup({ location, onClose }: Props) {
+export default function ClosePopup({
+  location,
+  onClose,
+  startChallenge,
+}: Props) {
   const [selectedTab, selectTab] = useState<"guide" | "challenges" | "posts">(
     "guide",
   );
+
+  const closeWindowAndStart = () => {
+    onClose();
+
+    startChallenge();
+  };
 
   return (
     <View style={styles.bottomPopup}>
@@ -108,7 +119,10 @@ export default function ClosePopup({ location, onClose }: Props) {
         )}
 
         {selectedTab === "challenges" && (
-          <Challenge challenges={location.challenges} />
+          <Challenge
+            challenges={location.challenges}
+            startChallenge={() => closeWindowAndStart()}
+          />
         )}
 
         {selectedTab === "posts" && <View></View>}

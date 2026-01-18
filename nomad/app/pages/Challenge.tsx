@@ -19,9 +19,10 @@ const coinImg = require("../../assets/images/Coin.png");
 
 type Props = {
   challenges: MapLocation["challenges"];
+  startChallenge: () => void;
 };
 
-export default function Challenges({ challenges }: Props) {
+export default function Challenges({ challenges, startChallenge }: Props) {
   const [challengeIndex, setIndex] = useState<number | null>(null);
 
   const openChallenge = (index: number | null) => {
@@ -95,7 +96,10 @@ export default function Challenges({ challenges }: Props) {
           </View>
 
           <Pressable style={styles.startButton}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>
+            <Text
+              style={{ color: "white", fontWeight: "bold" }}
+              onPress={() => startChallenge()}
+            >
               START CHALLENGE{" "}
             </Text>
           </Pressable>
