@@ -25,9 +25,9 @@ type Props = {
 };
 
 export default function ClosePopup({ location, onClose }: Props) {
-  const [selectedTab, selectTab] = useState<
-    "guide" | "challenges" | "posts"
-  >("guide");
+  const [selectedTab, selectTab] = useState<"guide" | "challenges" | "posts">(
+    "guide",
+  );
 
   return (
     <View style={styles.bottomPopup}>
@@ -107,7 +107,9 @@ export default function ClosePopup({ location, onClose }: Props) {
           </View>
         )}
 
-        {selectedTab === "challenges" && <Challenge challenges={location.challenges} />}
+        {selectedTab === "challenges" && (
+          <Challenge challenges={location.challenges} />
+        )}
 
         {selectedTab === "posts" && <View></View>}
       </View>

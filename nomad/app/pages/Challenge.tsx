@@ -60,7 +60,36 @@ export default function Challenges({ challenges }: Props) {
           <Text style={{ fontSize: 32, fontWeight: "bold" }}>Challenge:</Text>
 
           <View style={styles.ChallengeInfoContainer}>
-            <Text>{challenges[challengeIndex].title}</Text>
+            <Text
+              style={{ fontSize: 28, fontWeight: "bold", color: "#019b77" }}
+            >
+              {challenges[challengeIndex].title}
+            </Text>
+            <Text>{challenges[challengeIndex].description}</Text>
+          </View>
+
+          <View style={styles.ChallengeRewardContainer}>
+            <Text
+              style={{ fontSize: 28, fontWeight: "bold", color: "#019b77" }}
+            >
+              Reward:
+            </Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                right: 20,
+              }}
+            >
+              <Image
+                source={coinImg}
+                style={{ right: -6, width: 50, height: 50 }}
+              />
+              <Text style={{ fontWeight: "bold" }}>
+                {challenges[challengeIndex].reward}
+              </Text>
+            </View>
           </View>
         </View>
       )}
@@ -113,5 +142,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#dbfaf2",
     borderRadius: 15,
     padding: 20,
+  },
+  ChallengeRewardContainer: {
+    backgroundColor: "#dbfaf2",
+    marginTop: 10,
+    padding: 15,
+
+    paddingLeft: 20,
+    borderRadius: 20,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

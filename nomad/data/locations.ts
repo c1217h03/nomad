@@ -38,14 +38,15 @@ Perfect for biking, walking, picnics, and sunset views.
     challenges: [
       {
         title: "Find Nugget!",
-        description: `
-          Nugget is hiding somewhere nearby 👀
+        description: `Nugget is hiding somewhere nearby 👀
 
-          Roam around the area and keep exploring until you get close enough to reveal him.
-          He won't show up on the map right away — you'll need to trust your curiosity and move around.
+Roam around the area and keep exploring until you get close enough to reveal him.
+He won't show up on the map right away — you'll need to trust your curiosity and move around.
 
-          Within close proximity, Nugget will appear and say hi 🐾
-          Find him to complete the challenge and unlock your reward!
+Within close proximity, Nugget will appear and say hi 🐾
+Find him to complete the challenge and unlock your reward!
+
+Hint: Slow down, look around, and explore places you might usually walk past.
         `,
         isCompleted: false,
         reward: 100,
