@@ -24,7 +24,7 @@ type Props = {
 export default function Challenges({ challenges }: Props) {
   const [challengeIndex, setIndex] = useState<number | null>(null);
 
-  const openChallenge = (index: number) => {
+  const openChallenge = (index: number | null) => {
     setIndex(index);
   };
 
@@ -65,7 +65,9 @@ export default function Challenges({ challenges }: Props) {
             >
               {challenges[challengeIndex].title}
             </Text>
-            <Text>{challenges[challengeIndex].description}</Text>
+            <Text style={{ fontSize: 13 }}>
+              {challenges[challengeIndex].description}
+            </Text>
           </View>
 
           <View style={styles.ChallengeRewardContainer}>
@@ -91,6 +93,20 @@ export default function Challenges({ challenges }: Props) {
               </Text>
             </View>
           </View>
+
+          <Pressable style={styles.startButton}>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              START CHALLENGE{" "}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.notReadyButton}
+            onPress={() => openChallenge(null)}
+          >
+            <Text
+              style={{ color: "#DB581D", fontWeight: "bold" }}
+            >{`I'M NOT READY`}</Text>
+          </Pressable>
         </View>
       )}
     </View>
@@ -141,18 +157,32 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: "#dbfaf2",
     borderRadius: 15,
-    padding: 20,
+    padding: 15,
   },
   ChallengeRewardContainer: {
     backgroundColor: "#dbfaf2",
     marginTop: 10,
-    padding: 15,
-
-    paddingLeft: 20,
-    borderRadius: 20,
+    padding: 8,
+    paddingLeft: 15,
+    borderRadius: 25,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  startButton: {
+    marginTop: 30,
+    backgroundColor: "#19b777",
+    padding: 15,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  notReadyButton: {
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 12,
+    alignItems: "center",
+    borderColor: "#DB581D",
+    borderWidth: 2,
   },
 });
