@@ -1,4 +1,4 @@
-# nomad
+# nomad.
 
 ## Project Overview
 Nomad is a gamified wellness and exploration app. It turns the city into an interactive map where users explore real locations, learn local history through NPCs, complete AI-generated challenges, and unlock rewards from local businesses.
@@ -8,3 +8,9 @@ Nomad is a gamified wellness and exploration app. It turns the city into an inte
 - Help users appreciate local history and culture
 - Support local businesses through ethical, location-based rewards
 - Promote wellness without intense pressure
+
+## Prototype
+https://www.figma.com/proto/BAf6O3IYdYdaAO01tv1GO2/nwHacks--26?node-id=2007-111&t=gALuYxacujxh7wyA-1
+
+## Pitch Deck
+https://www.figma.com/proto/BAf6O3IYdYdaAO01tv1GO2/nwHacks--26?node-id=2152-142&t=gALuYxacujxh7wyA-1
