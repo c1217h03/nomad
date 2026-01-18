@@ -14,6 +14,7 @@ import Button from "./Button";
 import { Tabs } from "expo-router";
 import { green } from "react-native-reanimated/lib/typescript/Colors";
 import Challenge from "./Challenge";
+import Posts from "./Posts";
 
 const closeBtnImg = require("../../assets/images/close.png");
 const geminiImg = require("../../assets/images/gemini.png");
@@ -125,7 +126,7 @@ export default function ClosePopup({
           />
         )}
 
-        {selectedTab === "posts" && <View></View>}
+        {selectedTab === "posts" && <Posts posts={location.posts}></Posts>}
       </View>
     </View>
   );
