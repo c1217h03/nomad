@@ -3,26 +3,44 @@ import { StyleSheet, View, Image, Platform, Text } from "react-native";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
 import { MapLocation } from "../../data/locations";
+import MarkerPopup from "./summaryPopup";
+import ClosePopup from "./closePopup";
 
-// Dynamically import map components on native
+// Dynamically import map components for native
 let MapView: any = null;
 let Marker: any = null;
-let Circle: any = null;
 let Polygon: any = null;
 
 type Props = {
-  //   userLocation: { latitude: number; longitude: number };
-  //   heading: number;
   markers?: MapLocation[];
 };
 
 export default function Map({ markers = [] }: Props) {
   const [userLocation, setUserLocation] = useState<LatLng | null>(null);
+  const [heading, setHeading] = useState<number>(0);
   const [permissionGranted, setPermissionGranted] = useState<boolean | null>(
     null,
   );
-  const [heading, setHeading] = useState<number>(0); // device facing
+  const [selectedMarker, setSelectedMarker] = useState<
+    (MapLocation & { isNear?: boolean }) | null
+  >(null);
+
   const mapRef = useRef<any>(null);
+
+  // Distance function (meters)
+  const getDistanceInMeters = (from: LatLng, to: LatLng) => {
+    const toRad = (value: number) => (value * Math.PI) / 180;
+    const R = 6371000; // Earth radius
+    const dLat = toRad(to.latitude - from.latitude);
+    const dLon = toRad(to.longitude - from.longitude);
+    const lat1 = toRad(from.latitude);
+    const lat2 = toRad(to.latitude);
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.sin(dLon / 2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
 
   useEffect(() => {
     let headingSubscription: Location.LocationSubscription | null = null;
@@ -33,23 +51,22 @@ export default function Map({ markers = [] }: Props) {
         setPermissionGranted(status === "granted");
         if (status !== "granted") return;
 
-        // Dynamically import maps for native
         if (Platform.OS !== "web") {
           const maps = require("react-native-maps");
           MapView = maps.default ?? maps;
           Marker = maps.Marker ?? (maps.default && maps.default.Marker);
-          Circle = maps.Circle ?? (maps.default && maps.default.Circle);
           Polygon = maps.Polygon ?? (maps.default && maps.default.Polygon);
         }
 
-        // Get initial location
+        // Initial location
         const initial = await Location.getCurrentPositionAsync({
           accuracy: Location.Accuracy.Highest,
         });
-        setUserLocation({
+        const loc: LatLng = {
           latitude: initial.coords.latitude,
           longitude: initial.coords.longitude,
-        });
+        };
+        setUserLocation(loc);
 
         // Watch GPS location
         await Location.watchPositionAsync(
@@ -58,47 +75,37 @@ export default function Map({ markers = [] }: Props) {
             distanceInterval: 1,
             timeInterval: 1000,
           },
-          (loc) => {
+          (locUpdate) => {
             const newLoc: LatLng = {
-              latitude: loc.coords.latitude,
-              longitude: loc.coords.longitude,
+              latitude: locUpdate.coords.latitude,
+              longitude: locUpdate.coords.longitude,
             };
             setUserLocation(newLoc);
 
-            // Use GPS heading as fallback if moving
-            if (
-              loc.coords.speed &&
-              loc.coords.speed > 0.5 &&
-              loc.coords.heading !== null
-            ) {
-              setHeading(loc.coords.heading);
-            }
-
-            // Move camera
+            // Move camera smoothly
             if (mapRef.current) {
-              mapRef.current.animateCamera(
-                { center: newLoc, heading: heading, pitch: 0, zoom: 18 },
-                { duration: 300 },
+              mapRef.current.setCamera(
+                { center: newLoc, heading, pitch: 0, zoom: 18 },
+                { duration: 100 },
               );
             }
           },
         );
 
-        // Watch device compass heading
+        // Watch device heading
         headingSubscription = await Location.watchHeadingAsync((event) => {
           const deviceHeading = event.trueHeading ?? event.magHeading ?? 0;
           setHeading(deviceHeading);
 
-          // Rotate map smoothly
           if (mapRef.current && userLocation) {
-            mapRef.current.animateCamera(
+            mapRef.current.setCamera(
               {
                 center: userLocation,
                 heading: deviceHeading,
                 pitch: 0,
                 zoom: 18,
               },
-              { duration: 300 },
+              { duration: 100 },
             );
           }
         });
@@ -135,10 +142,10 @@ export default function Map({ markers = [] }: Props) {
     );
   }
 
-  // Smooth radar cone calculation
-  const coneLength = 0.0003; // ~30 meters
-  const coneWidth = 0.00015; // ~15 meters
-  const headingRad = (heading * Math.PI) / 180; // convert degrees to radians
+  // Radar cone coordinates
+  const coneLength = 0.0003; // ~30m
+  const coneWidth = 0.00015; // ~15m
+  const headingRad = (heading * Math.PI) / 180;
   const x = Math.sin(headingRad);
   const y = Math.cos(headingRad);
   const perpX = Math.cos(headingRad) * coneWidth;
@@ -165,10 +172,10 @@ export default function Map({ markers = [] }: Props) {
         followsUserLocation={false}
         showsMyLocationButton
       >
-        {/* Fixed user marker */}
+        {/* User marker */}
         <Marker coordinate={userLocation} anchor={{ x: 0.5, y: 0.5 }}>
           <Image
-            source={require("../../assets/images/avatar.png")}
+            source={require("../../assets/images/Avatar.png")}
             style={styles.userMarker}
           />
         </Marker>
@@ -178,18 +185,49 @@ export default function Map({ markers = [] }: Props) {
           <Marker
             key={m.title}
             coordinate={{ latitude: m.latitude, longitude: m.longitude }}
-            title={m.title}
+            anchor={{ x: 0.5, y: 0.5 }}
+            onPress={() => {
+              const distance = getDistanceInMeters(userLocation, {
+                latitude: m.latitude,
+                longitude: m.longitude,
+              });
+              setSelectedMarker({ ...m, isNear: distance <= 100 });
+            }}
           >
             <Image source={{ uri: m.npc }} style={styles.npcMarker} />
           </Marker>
         ))}
+
+        {/* Radar cone */}
+        {userLocation && Polygon && (
+          <Polygon
+            coordinates={radarPoints}
+            fillColor="rgba(0, 149, 255, 0.14)"
+            strokeColor="rgba(0, 149, 255, 0.3)"
+            strokeWidth={1}
+          />
+        )}
       </MapView>
+
+      {/* Bottom popups */}
+      {selectedMarker &&
+        (selectedMarker.isNear ? (
+          <ClosePopup
+            location={selectedMarker}
+            onClose={() => setSelectedMarker(null)}
+          />
+        ) : (
+          <MarkerPopup
+            location={selectedMarker}
+            onClose={() => setSelectedMarker(null)}
+          />
+        ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  userMarker: { width: 40, height: 40, resizeMode: "contain" },
-  npcMarker: { width: 100, height: 100, resizeMode: "contain" },
+  userMarker: { width: 100, height: 100, resizeMode: "contain" },
+  npcMarker: { width: 90, height: 90, resizeMode: "contain" },
 });
