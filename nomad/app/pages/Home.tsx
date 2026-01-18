@@ -56,6 +56,7 @@ export default function Home() {
         followsUserLocation={true}
         showsMyLocationButton={true}
       /> */}
+      <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
 
       <View style={styles.searchBarContainer}>
         <SearchBar />
@@ -82,7 +83,6 @@ export default function Home() {
       {openPage === "profile" && (
         <ProfilePage setProfilePage={() => setOpenPage(null)} />
       )}
-      <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
       {/* <NPCGame npc={NPC_GAME_LOCATIONS[0]} /> */}
     </View>
   );
