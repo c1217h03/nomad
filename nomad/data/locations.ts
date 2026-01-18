@@ -102,3 +102,13 @@ Hint: Slow down, look around, and explore places you might usually walk past.
     challenges: [],
   },
 ];
+
+export const NPC_GAME_LOCATIONS: MapLocation[] = [
+  {
+    title: "Nugget",
+    latitude: 49.26227397998184,
+    longitude: -123.24520448576409,
+    npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/nugget.png",
+    summary: "",
+  },
+];

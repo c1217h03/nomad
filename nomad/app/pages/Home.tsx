@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
 import Map from "./Map";
-import { LOCATIONS } from "../../data/locations";
+import { LOCATIONS, NPC_GAME_LOCATIONS } from "../../data/locations";
+import NPCGame from "./FindNugget";
 
 import Button from "./Button";
 import SearchBar from "./SearchBar";
@@ -14,7 +15,7 @@ import MarkerPopup from "./summaryPopup";
 import ClosePopup from "./closePopup";
 
 const expandImg = require("../../assets/images/expand.png");
-const inventoryImg = require("../../assets/images/Inventory.png");
+const inventoryImg = require("../../assets/images/inventory.png");
 const shopImg = require("../../assets/images/shop.png");
 const profileImg = require("../../assets/images/profile.png");
 
@@ -67,6 +68,11 @@ export default function Home() {
             </>
           )}
         </View>
+    
+      <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
+
+      <View style={styles.searchBarContainer}>
+        <SearchBar />
       </View>
       <View style={styles.pagesContainer}>
         {openPage === "inventory" && (
@@ -79,13 +85,8 @@ export default function Home() {
 
         {/* {openPage === "profile" && (
         <ProfilePage setProfilePage={() => setOpenPage(null)} />
-      )} */}
-
-      </View>
-
-      <View style={styles.mapPage}>
-        <Map markers={LOCATIONS}/>
-      </View>
+      )}
+      {/* <NPCGame npc={NPC_GAME_LOCATIONS[0]} /> */}
     </View>
   );
 }
