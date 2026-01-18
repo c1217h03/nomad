@@ -73,6 +73,13 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
     setGameActive(true);
   };
 
+  const endGame = () => {
+    setFoundNugget(false);
+    setNuggetStep(null);
+    setGameActive(false);
+    setNugget(null);
+  };
+
   useEffect(() => {
     let headingSubscription: Location.LocationSubscription | null = null;
 
@@ -301,7 +308,13 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
           }}
         />
       )}
-  
+
+      {gameActive && (
+        <TouchableOpacity style={styles.endButton} onPress={endGame}>
+          <Text style={styles.endButtonText}>I Give Up!</Text>
+        </TouchableOpacity>
+      )}
+
       {/* Bottom popups */}
       {selectedMarker &&
         (selectedMarker.isNear ? (
@@ -338,6 +351,20 @@ const styles = StyleSheet.create({
     borderRadius: 28,
   },
   startButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  endButton: {
+    position: "absolute",
+    bottom: 40,
+    alignSelf: "center",
+    backgroundColor: "#ff0000ff",
+    paddingVertical: 14,
+    paddingHorizontal: 36,
+    borderRadius: 28,
+  },
+  endButtonText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
