@@ -14,7 +14,7 @@ const closeBtnImg = require("../../assets/images/close.png");
 const shareImg = require("../../assets/images/icon.png");
 const profilePicImg = require("../../assets/images/icon.png");
 
-const shopImg = require("../../assets/images/Shop.png");
+const shopImg = require("../../assets/images/shop.png");
 
 const leafHatImg = require("../../assets/images/leafHat.png");
 const ribbyImg = require("../../assets/images/ribby.png");
@@ -77,10 +77,15 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 40,
+    height: screenHeight,
+    position: "absolute",
     backgroundColor: "#f3f3f3",
     flex: 1,
     alignItems: "center",
-    position: "absolute",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 30,
   },
   shopPicContainer: {
     backgroundColor: "white",

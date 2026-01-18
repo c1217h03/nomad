@@ -4,6 +4,15 @@ export type MapLocation = {
   longitude: number;
   npc: string;
   summary: string;
+  guide: string;
+  challenges: Challenge[];
+};
+
+type Challenge = {
+  title: string;
+  description: string;
+  isCompleted: boolean;
+  reward: number;
 };
 
 export const LOCATIONS: MapLocation[] = [
@@ -14,6 +23,52 @@ export const LOCATIONS: MapLocation[] = [
     npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/NPC.png",
     summary:
       "The Life Sciences Centre at UBC is a hub for cutting-edge research and education in the life sciences. It houses state-of-the-art laboratories, lecture halls, and collaborative spaces for students and faculty.",
+    guide: `
+Iconic 1,000-acre urban park on Vancouver's waterfront, known for lush forests, scenic views, and easy access to nature right by downtown 🌲🌊
+
+Highlights:
+• Seawall - Famous walking & cycling path with ocean and city views
+• Totem Poles - Must-see cultural landmark
+• Beaches - English Bay, Second Beach & Third Beach
+• Stanley Park Pavilion & Rose Garden
+• Wildlife & forest trails - Quiet escapes inside the city
+
+Perfect for biking, walking, picnics, and sunset views.
+`,
+    challenges: [
+      {
+        title: "Find Nugget!",
+        description: `
+          Nugget is hiding somewhere nearby 👀
+
+          Roam around the area and keep exploring until you get close enough to reveal him.
+          He won't show up on the map right away — you'll need to trust your curiosity and move around.
+
+          Within close proximity, Nugget will appear and say hi 🐾
+          Find him to complete the challenge and unlock your reward!
+        `,
+        isCompleted: false,
+        reward: 100,
+      },
+      {
+        title: "Sharing is Caring",
+        description: "Present your science fair project to the lab team.",
+        isCompleted: false,
+        reward: 150,
+      },
+      {
+        title: "Just Vibe I Guess?",
+        description: "Present your science fair project to the lab team.",
+        isCompleted: false,
+        reward: 150,
+      },
+      {
+        title: "Hype 'em up",
+        description: "Present your science fair project to the lab team.",
+        isCompleted: false,
+        reward: 100,
+      },
+    ],
   },
   {
     title: "Pacific Spirit Park",
@@ -22,6 +77,8 @@ export const LOCATIONS: MapLocation[] = [
     npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/NPC.png",
     summary:
       "Pacific Spirit Park is a beautiful natural area located in the heart of UBC. It features walking trails, picnic areas, and a peaceful environment for relaxation and recreation.",
+    guide: "",
+    challenges: [],
   },
   {
     title: "UBC Botanical Garden",
@@ -30,6 +87,8 @@ export const LOCATIONS: MapLocation[] = [
     npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/NPC.png",
     summary:
       "The UBC Botanical Garden is a serene and educational space featuring a diverse collection of plants from around the world. It offers a peaceful retreat for students and visitors to enjoy nature and learn about botany.",
+    guide: "",
+    challenges: [],
   },
   {
     title: "Acadia Beach",
@@ -38,5 +97,7 @@ export const LOCATIONS: MapLocation[] = [
     npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/NPC.png",
     summary:
       "Acadia Beach is a scenic coastal area near UBC, offering beautiful views of the ocean and a peaceful environment for relaxation and recreation.",
+    guide: "",
+    challenges: [],
   },
 ];

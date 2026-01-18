@@ -10,6 +10,8 @@ import Button from "./Button";
 import SearchBar from "./SearchBar";
 import InventoryPage from "./InventoryPage";
 import ShopPage from "./ShopPage";
+import MarkerPopup from "./summaryPopup";
+import ClosePopup from "./closePopup";
 
 const expandImg = require("../../assets/images/expand.png");
 const inventoryImg = require("../../assets/images/Inventory.png");
@@ -17,6 +19,8 @@ const shopImg = require("../../assets/images/shop.png");
 const profileImg = require("../../assets/images/profile.png");
 
 export default function Home() {
+  const [popupType, setPopUp] = useState<"nearby" | "far" | null>(null);
+
   const [expanded, setExpanded] = useState(false);
   const [openInventory, setInventoryPage] = useState(false);
   const [openShop, setShopPage] = useState(false);
@@ -76,10 +80,11 @@ export default function Home() {
         {/* {openPage === "profile" && (
         <ProfilePage setProfilePage={() => setOpenPage(null)} />
       )} */}
+
       </View>
 
       <View style={styles.mapPage}>
-        <Map markers={LOCATIONS} />
+        <Map markers={LOCATIONS}/>
       </View>
     </View>
   );

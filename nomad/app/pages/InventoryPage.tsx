@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
     width: 150,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 30,
   },
   profilePic: {
     width: "60%",
