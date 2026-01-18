@@ -5,7 +5,7 @@ import {
   Image,
   Platform,
   Text,
-  TouchableOpacity,
+  Vibration,
 } from "react-native";
 import * as Location from "expo-location";
 import { Circle, type LatLng } from "react-native-maps";
@@ -288,7 +288,6 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
         )}
       </MapView>
 
-      
       {/* Nugget found popup */}
       {foundNugget && gameActive && (
         <NuggetFoundPopup
@@ -302,7 +301,7 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
           }}
         />
       )}
-
+  
       {/* Bottom popups */}
       {selectedMarker &&
         (selectedMarker.isNear ? (

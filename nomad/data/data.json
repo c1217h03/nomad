@@ -1,0 +1,31 @@
+{
+  "locations": [
+    {
+      "title": "Life Sciences Centre",
+      "latitude": 49.26247800002638,
+      "longitude": -123.24456013102296,
+      "npc": "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/NPC.png",
+      "summary": "The Life Sciences Centre at UBC is a hub for cutting-edge research and education in the life sciences.",
+      "guide": "Iconic 1,000-acre urban park on Vancouver's waterfront...",
+      "challenges": [
+        {
+          "title": "Find Nugget!",
+          "description": "Nugget is hiding somewhere nearby 👀",
+          "isCompleted": false,
+          "reward": 100
+        }
+      ]
+    }
+  ],
+  "npcGameLocations": [
+    {
+      "title": "Nugget",
+      "latitude": 49.26227397998184,
+      "longitude": -123.24520448576409,
+      "npc": "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/nugget.png",
+      "summary": "",
+      "guide": "",
+      "challenges": []
+    }
+  ]
+}
