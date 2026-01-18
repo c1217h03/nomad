@@ -36,11 +36,7 @@ type Community = {
 
 type CommunityTab = "explore" | "my_communities";
 
-export default function ProfilePostsPage({
-  setProfilePage,
-}: {
-  setProfilePage: (val: any) => void;
-}) {
+export default function ProfilePostsPage({  setProfilePage,}: {  setProfilePage: (val: any) => void;}) {
   const [selectedTab, setSelectedTab] = useState<"posts" | "communities">(
     "posts"
   );

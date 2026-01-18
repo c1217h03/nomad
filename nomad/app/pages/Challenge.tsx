@@ -100,7 +100,7 @@ export default function Challenges({ challenges, startChallenge }: Props) {
               style={{ color: "white", fontWeight: "bold" }}
               onPress={() => startChallenge()}
             >
-              START CHALLENGE{" "}
+              START CHALLENGE
             </Text>
           </Pressable>
           <Pressable

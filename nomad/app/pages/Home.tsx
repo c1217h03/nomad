@@ -13,7 +13,6 @@ import InventoryPage from "./InventoryPage";
 import ShopPage from "./ShopPage";
 import MarkerPopup from "./summaryPopup";
 import ClosePopup from "./closePopup";
-import ProfilePage from "./ProfilePage";
 
 const expandImg = require("../../assets/images/expand.png");
 const inventoryImg = require("../../assets/images/inventory.png");
@@ -65,7 +64,7 @@ export default function Home() {
               <Button btnImage={shopImg} onClick={() => setOpenPage("shop")} />
               <Button
                 btnImage={profileImg}
-                onClick={() => setOpenPage("profile")}
+                onClick={() => setOpenPage("inventory")}
               />
             </>
           )}
@@ -79,10 +78,6 @@ export default function Home() {
 
         {openPage === "shop" && (
           <ShopPage setShopPage={() => setOpenPage(null)} />
-        )}
-
-        {openPage === "profile" && (
-          <ProfilePage setProfilePage={() => setOpenPage(null)} />
         )}
       </View>
 
