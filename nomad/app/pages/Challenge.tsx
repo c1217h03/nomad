@@ -55,28 +55,13 @@ export default function Challenges({ challenges }: Props) {
         </View>
       )}
 
-      {challengeIndex == null && (
+      {challengeIndex !== null && (
         <View>
-          <Text style={{ fontSize: 32, fontWeight: "bold" }}>Challenges</Text>
-          <Text style={{ fontSize: 16 }}>
-            Complete challenges and collect points! 🎉
-          </Text>
+          <Text style={{ fontSize: 32, fontWeight: "bold" }}>Challenge:</Text>
 
-          {challenges.map((challenge, index) => (
-            <Pressable
-              key={index}
-              style={styles.challengeContainer}
-              onPress={() => openChallenge(index)}
-            >
-              <View style={styles.ChallengeTextContainer}>
-                <Text style={styles.ChallengeText}>{challenge.title}</Text>
-              </View>
-              <View style={styles.rewardContainer}>
-                <Image source={coinImg} style={{ width: 50, height: 50 }} />
-                <Text style={styles.rewardText}>{challenge.reward}</Text>
-              </View>
-            </Pressable>
-          ))}
+          <View style={styles.ChallengeInfoContainer}>
+            <Text>{challenges[challengeIndex].title}</Text>
+          </View>
         </View>
       )}
     </View>
@@ -122,5 +107,11 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontWeight: "bold",
+  },
+  ChallengeInfoContainer: {
+    marginTop: 20,
+    backgroundColor: "#dbfaf2",
+    borderRadius: 15,
+    padding: 20,
   },
 });
