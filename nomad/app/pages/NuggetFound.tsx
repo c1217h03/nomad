@@ -1,21 +1,42 @@
 // NuggetFoundPopup.tsx
-import React from "react";
+import { MapLocation } from "@/data/locations";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 type Props = {
-  onClose: () => void;
+  step: "found" | "reward" | null;
+  onContinue: () => void;
+  onOk: () => void;
 };
 
-export default function NuggetFoundPopup({ onClose }: Props) {
+export default function NuggetFoundPopup({ step, onContinue, onOk }: Props) {
+  useEffect(() => {
+    console.log("NuggetFoundPopup step:", step);
+  }, [step]);
   return (
     <View style={styles.overlay}>
       <View style={styles.popup}>
-        <Image source={require("../../assets/images/nugget.png")} />
-        <Text style={styles.title}>Yay! You found Me!</Text>
-
-        <TouchableOpacity style={styles.button} onPress={onClose}>
-          <Text style={styles.buttonText}>Continue</Text>
-        </TouchableOpacity>
+        {step == "found" && (
+          <>
+            <Image source={require("../../assets/images/nugget.png")} />
+            <Text style={styles.title}>You found me!</Text>
+            <TouchableOpacity style={styles.button} onPress={onContinue}>
+              <Text style={styles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+          </>
+        )}
+        {step == "reward" && (
+          <>
+            <Image
+              source={require("../../assets/images/Coin.png")}
+              style={styles.coinImage}
+            />
+            <Text style={styles.title}>You received 100 gold!</Text>
+            <TouchableOpacity style={styles.button} onPress={onOk}>
+              <Text style={styles.buttonText}>Ok</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </View>
   );
@@ -46,6 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 12,
+    textAlign: "center",
   },
   text: {
     fontSize: 16,
@@ -62,4 +84,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
+  coinImage: { width: 150, height: 120, marginBottom: 20 },
 });

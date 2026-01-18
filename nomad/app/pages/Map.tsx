@@ -36,6 +36,7 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
 
   /** 🔹 Find Nugget game state */
   const [gameActive, setGameActive] = useState(false);
+  const [nuggetStep, setNuggetStep] = useState<"found" | "reward" | null>(null);
   const [nugget, setNugget] = useState<MapLocation | null>(null);
   const [foundNugget, setFoundNugget] = useState(false);
 
@@ -121,8 +122,9 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
 
               //   console.log(`[NUGGET DISTANCE] ${dist.toFixed(2)} meters`);
 
-              if (dist <= 8) {
+              if (dist <= 20) {
                 setFoundNugget(true);
+                setNuggetStep("found");
               }
             }
 
@@ -267,9 +269,12 @@ export default function Map({ markers = [], gameLocations = [] }: Props) {
       {/* Nugget found popup */}
       {foundNugget && gameActive && (
         <NuggetFoundPopup
-          onClose={() => {
-            setFoundNugget(false);
-            setGameActive(false);
+          step={nuggetStep}
+          onContinue={() => setNuggetStep("reward")} // Continue button shows reward
+          onOk={() => {
+            setFoundNugget(false); // Close popup
+            setNuggetStep(null); // Reset step
+            setGameActive(false); // Stop game
             setNugget(null);
           }}
         />
