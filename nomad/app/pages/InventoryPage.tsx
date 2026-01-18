@@ -73,6 +73,9 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 40,
+    height: screenHeight,
+    position: "absolute",
     backgroundColor: "#f3f3f3",
     flex: 1,
     alignItems: "center",
@@ -86,6 +89,9 @@ const styles = StyleSheet.create({
     width: 150,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 30,
   },
   profilePic: {
     width: "60%",

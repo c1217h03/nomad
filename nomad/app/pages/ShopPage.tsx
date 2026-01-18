@@ -45,7 +45,11 @@ export default function ShopPage({
       </View>
 
       <View style={styles.shopPicContainer}>
-        <Image source={shopImg} style={styles.profilePic} />
+        <Image
+          source={shopImg}
+          style={styles.profilePic}
+          resizeMode="contain"
+        />
       </View>
       <Text style={{ fontWeight: "bold", fontSize: 22 }}>Shop</Text>
 
@@ -73,9 +77,15 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 40,
+    height: screenHeight,
+    position: "absolute",
     backgroundColor: "#f3f3f3",
     flex: 1,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 30,
   },
   shopPicContainer: {
     backgroundColor: "white",

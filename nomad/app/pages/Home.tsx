@@ -1,5 +1,5 @@
 import MapView, { Region, Marker } from "react-native-maps";
-import { StyleSheet, Image, Text, Platform, View } from "react-native";
+import { StyleSheet, View, Image, Platform, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import type { LatLng } from "react-native-maps";
@@ -11,6 +11,8 @@ import Button from "./Button";
 import SearchBar from "./SearchBar";
 import InventoryPage from "./InventoryPage";
 import ShopPage from "./ShopPage";
+import MarkerPopup from "./summaryPopup";
+import ClosePopup from "./closePopup";
 
 const expandImg = require("../../assets/images/expand.png");
 const inventoryImg = require("../../assets/images/inventory.png");
@@ -18,6 +20,8 @@ const shopImg = require("../../assets/images/shop.png");
 const profileImg = require("../../assets/images/profile.png");
 
 export default function Home() {
+  const [popupType, setPopUp] = useState<"nearby" | "far" | null>(null);
+
   const [expanded, setExpanded] = useState(false);
   const [openInventory, setInventoryPage] = useState(false);
   const [openShop, setShopPage] = useState(false);
@@ -50,37 +54,36 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      {/* <MapView
-        style={StyleSheet.absoluteFill}
-        showsUserLocation={true}
-        followsUserLocation={true}
-        showsMyLocationButton={true}
-      /> */}
+      <View style={styles.menus}>
+        <View style={styles.searchBarContainer}>
+          <SearchBar />
+        </View>
+        <View style={styles.buttonscontainer}>
+          <Button btnImage={expandImg} onClick={expandButtons} />
+          {expanded && (
+            <>
+              <Button btnImage={inventoryImg} onClick={showInventory} />
+              <Button btnImage={shopImg} onClick={showShop} />
+              <Button btnImage={profileImg} onClick={showProfile} />
+            </>
+          )}
+        </View>
+    
       <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
 
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
-      <View style={styles.buttonscontainer}>
-        <Button btnImage={expandImg} onClick={expandButtons} />
-        {expanded && (
-          <>
-            <Button btnImage={inventoryImg} onClick={showInventory} />
-            <Button btnImage={shopImg} onClick={showShop} />
-            <Button btnImage={profileImg} onClick={showProfile} />
-          </>
+      <View style={styles.pagesContainer}>
+        {openPage === "inventory" && (
+          <InventoryPage setInventoryPage={() => setOpenPage(null)} />
         )}
-      </View>
 
-      {openPage === "inventory" && (
-        <InventoryPage setInventoryPage={() => setOpenPage(null)} />
-      )}
+        {openPage === "shop" && (
+          <ShopPage setShopPage={() => setOpenPage(null)} />
+        )}
 
-      {openPage === "shop" && (
-        <ShopPage setShopPage={() => setOpenPage(null)} />
-      )}
-
-      {openPage === "profile" && (
+        {/* {openPage === "profile" && (
         <ProfilePage setProfilePage={() => setOpenPage(null)} />
       )}
       {/* <NPCGame npc={NPC_GAME_LOCATIONS[0]} /> */}
@@ -109,5 +112,15 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     resizeMode: "contain",
+  },
+  menus: {
+    top: 50,
+    zIndex: 10,
+  },
+  mapPage: {
+    flex: 1,
+  },
+  pagesContainer: {
+    zIndex: 10,
   },
 });
