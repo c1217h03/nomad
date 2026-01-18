@@ -68,12 +68,9 @@ export default function Home() {
             </>
           )}
         </View>
-    
+      </View>
       <Map markers={LOCATIONS} gameLocations={NPC_GAME_LOCATIONS} />
 
-      <View style={styles.searchBarContainer}>
-        <SearchBar />
-      </View>
       <View style={styles.pagesContainer}>
         {openPage === "inventory" && (
           <InventoryPage setInventoryPage={() => setOpenPage(null)} />
@@ -82,11 +79,7 @@ export default function Home() {
         {openPage === "shop" && (
           <ShopPage setShopPage={() => setOpenPage(null)} />
         )}
-
-        {/* {openPage === "profile" && (
-        <ProfilePage setProfilePage={() => setOpenPage(null)} />
-      )}
-      {/* <NPCGame npc={NPC_GAME_LOCATIONS[0]} /> */}
+      </View>
     </View>
   );
 }

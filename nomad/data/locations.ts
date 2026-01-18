@@ -110,5 +110,7 @@ export const NPC_GAME_LOCATIONS: MapLocation[] = [
     longitude: -123.24520448576409,
     npc: "https://raw.githubusercontent.com/c1217h03/nomad/main/nomad/assets/images/nugget.png",
     summary: "",
+    guide: "",
+    challenges: [],
   },
 ];
