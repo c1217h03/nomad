@@ -45,7 +45,11 @@ export default function ShopPage({
       </View>
 
       <View style={styles.shopPicContainer}>
-        <Image source={shopImg} style={styles.profilePic} />
+        <Image
+          source={shopImg}
+          style={styles.profilePic}
+          resizeMode="contain"
+        />
       </View>
       <Text style={{ fontWeight: "bold", fontSize: 22 }}>Shop</Text>
 
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f3f3f3",
     flex: 1,
     alignItems: "center",
+    position: "absolute",
   },
   shopPicContainer: {
     backgroundColor: "white",

@@ -73,6 +73,9 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 40,
+    height: screenHeight,
+    position: "absolute",
     backgroundColor: "#f3f3f3",
     flex: 1,
     alignItems: "center",
